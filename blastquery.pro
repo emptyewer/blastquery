@@ -63,11 +63,13 @@ macx {
 
 win32 {
     ICON = Icon.ico
-    QMAKE_POST_LINK += "C:\Qt\5.10.1\mingw53_32\bin\windeployqt C:\Users\Venky\build-MALTA-Desktop_Qt_5_10_1_MinGW_32bit-Release\release\MALTA.exe"
+    RC_FILE = blastquery.rc
+    QMAKE_POST_LINK += "C:\Qt\5.10.1\mingw53_32\bin\windeployqt C:\Users\Venky\build-blastquery-Desktop_Qt_5_10_1_MinGW_32bit-Release\release\BlastQuery.exe"
     QMAKE_LFLAGS += -static -v
 }
 
 unix:!macx {
     INCLUDEPATH += $PWD/../../../../usr/include
     DEPENDPATH += $PWD/../../../../usr/include
+#  linuxqtdeploy BlastQuery -always-overwrite -appimage -no-strip
 }
