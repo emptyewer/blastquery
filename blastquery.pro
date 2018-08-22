@@ -70,4 +70,5 @@ win32 {
 unix:!macx {
     INCLUDEPATH += $PWD/../../../../usr/include
     DEPENDPATH += $PWD/../../../../usr/include
+#  linuxqtdeploy BlastQuery -always-overwrite -appimage -no-strip
 }
