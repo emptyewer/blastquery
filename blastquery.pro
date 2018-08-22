@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui widgets sql charts
+QT += core gui widgets sql charts printsupport
 
 TARGET = BlastQuery
 TEMPLATE = app
@@ -27,20 +27,26 @@ SOURCES += \
     mainwindow.cpp \
     utils/io.cpp \
     db/dbmanager.cpp \
+    db/dbquery.cpp \
+    plot/qcustomplot.cpp
 
 HEADERS += \
+    imports.h \
     mainwindow.h \
-    db/dbmanager.h \
     utils/io.h \
-    imports.h
+    db/dbmanager.h \
+    db/dbquery.h \
+    plot/qcustomplot.h \
+    ext/table.h
+
 
 FORMS += \
         mainwindow.ui
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
 
 macx {
     ICON = Icon.icns

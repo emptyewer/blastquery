@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include "db/dbmanager.h"
+#include "db/dbquery.h"
+#include "ext/table.h"
 #include "imports.h"
+#include "plot/qcustomplot.h"
 #include "utils/io.h"
 #include <QCompleter>
 #include <QFileDialog>
@@ -19,25 +22,36 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  void initialize_blast_query(QString folder);
 
 private slots:
   void on_actionChoose_Work_Folder_triggered();
   void populate_completer(QStringList);
-
-  void on_pushButton_clicked();
-
   void on_searchtext_editingFinished();
-
   void on_searchtext_returnPressed();
-
   void on_accession_list_currentIndexChanged(const QString &arg1);
+  void on_selection1_currentIndexChanged(int index);
+  void resize_tables();
+  void update_table_contents();
+  void setup_plots();
+  void on_selection2_currentIndexChanged(int index);
+  void on_selection3_currentIndexChanged(int index);
+  void on_save_csv_clicked();
 
 private:
   Ui::MainWindow *ui;
-  DbManager db_manager;
+  QStringList db_files_list;
+  DBQuery db_query;
   IO io_manager;
   QString work_folder;
   QString old_search_text;
+  QCPBars *plot1_bar;
+  QCPBars *plot2_bar;
+  QCPBars *plot3_bar;
+  QCPBars *plot1_bardark;
+  QCPBars *plot2_bardark;
+  QCPBars *plot3_bardark;
+  QStringList reference_junction_list;
 };
 
 #endif // MAINWINDOW_H

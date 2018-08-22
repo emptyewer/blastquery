@@ -11,9 +11,9 @@
 	<key>CFBundleSignature</key>
 	<string>Mac Pro</string>
 	<key>CFBundleExecutable</key>
-	<string>Blast Query++</string>
+	<string>BlastQuery</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.uiowa.deepn.blastquery++</string>
+	<string>com.uiowa.deepn.blastquery</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018. Venkatramanan Krishnamani, Robert C. Piper, Mark Stammnes.</string>
 	<key>CFBundleDisplayName</key>
