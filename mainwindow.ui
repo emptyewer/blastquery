@@ -121,18 +121,8 @@
           <item>
            <widget class="QTabWidget" name="tabWidget">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
-            <widget class="QWidget" name="graph1">
-             <attribute name="title">
-              <string>Graph</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_12">
-              <item>
-               <widget class="QCustomPlot" name="plot1" native="true"/>
-              </item>
-             </layout>
-            </widget>
             <widget class="QWidget" name="list1">
              <attribute name="title">
               <string>List</string>
@@ -197,6 +187,26 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="plottab1">
+             <attribute name="title">
+              <string>Plot</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QCustomPlot" name="ppm_plot1" native="true"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="graph1">
+             <attribute name="title">
+              <string>Stats</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <item>
+               <widget class="QCustomPlot" name="plot1" native="true"/>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -239,18 +249,8 @@
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
-            <widget class="QWidget" name="graph2">
-             <attribute name="title">
-              <string>Graph</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
-              <item>
-               <widget class="QCustomPlot" name="plot2" native="true"/>
-              </item>
-             </layout>
-            </widget>
             <widget class="QWidget" name="list2">
              <attribute name="title">
               <string>List</string>
@@ -362,6 +362,26 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="plottab2">
+             <attribute name="title">
+              <string>Plot</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QCustomPlot" name="ppm_plot2" native="true"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="graph2">
+             <attribute name="title">
+              <string>Stats</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <widget class="QCustomPlot" name="plot2" native="true"/>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -404,18 +424,8 @@
           <item>
            <widget class="QTabWidget" name="tabWidget_3">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
-            <widget class="QWidget" name="graph3">
-             <attribute name="title">
-              <string>Graph</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <widget class="QCustomPlot" name="plot3" native="true"/>
-              </item>
-             </layout>
-            </widget>
             <widget class="QWidget" name="list3">
              <attribute name="title">
               <string>List</string>
@@ -524,6 +534,26 @@
                  </property>
                 </column>
                </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="plottab3">
+             <attribute name="title">
+              <string>Plot</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QCustomPlot" name="ppm_plot3" native="true"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="graph3">
+             <attribute name="title">
+              <string>Stats</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <widget class="QCustomPlot" name="plot3" native="true"/>
               </item>
              </layout>
             </widget>

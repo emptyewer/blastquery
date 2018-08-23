@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
   db_query = DBQuery();
   old_search_text = "";
   setup_plots();
+  // Delete below lines
+  //  initialize_blast_query("/Users/Venky/Desktop/Test");
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -84,6 +86,8 @@ void MainWindow::on_searchtext_returnPressed() {
 void MainWindow::on_accession_list_currentIndexChanged(const QString &arg1) {
   QStringList gene_info =
       db_query.get_info_for_accession_number(db_files_list.at(0), arg1);
+  orf_start = gene_info.at(2).toInt();
+  orf_end = gene_info.at(3).toInt();
   if (!gene_info.isEmpty()) {
     ui->gene_textbox->setHtml(io_manager.create_gene_html_text(gene_info));
     update_table_contents();
@@ -117,6 +121,7 @@ void MainWindow::on_selection1_currentIndexChanged(int index) {
         }
       }
     }
+    // Draw Graph
     QVector<double> ticks1;
     QVector<double> ticks2;
     QVector<double> stats =
@@ -128,6 +133,37 @@ void MainWindow::on_selection1_currentIndexChanged(int index) {
     plot1_bardark->setData(ticks2, stats.mid(5, 3));
     ui->plot1->yAxis->rescale(true);
     ui->plot1->replot();
+    // Draw Plot
+    QVector<double> xdata_blue;
+    QVector<double> xdata_bluedark;
+    QVector<double> xdata_red;
+    QVector<double> xdata_gray;
+    QVector<double> ydata_blue;
+    QVector<double> ydata_bluedark;
+    QVector<double> ydata_red;
+    QVector<double> ydata_gray;
+    foreach (QStringList j, result) {
+      if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
+        xdata_blue.append(j.at(0).toDouble());
+        ydata_blue.append(j.at(1).toDouble());
+      } else if (j.at(3) == "in_frame" && j.at(4) == "upstream") {
+        xdata_bluedark.append(j.at(0).toDouble());
+        xdata_bluedark.append(j.at(1).toDouble());
+      } else {
+        xdata_gray.append(j.at(0).toDouble());
+        ydata_gray.append(j.at(1).toDouble());
+      }
+      xdata_red.append(orf_start);
+      xdata_red.append(orf_end);
+      ydata_red.append(-1);
+      ydata_red.append(-1);
+    }
+    ppmplot1_bar_blue->setData(xdata_blue, ydata_blue);
+    ppmplot1_bar_red->setData(xdata_red, ydata_red);
+    ppmplot1_bar_gray->setData(xdata_gray, ydata_gray);
+    ppmplot1_bar_bluedark->setData(xdata_bluedark, ydata_bluedark);
+    ui->ppm_plot1->rescaleAxes(true);
+    ui->ppm_plot1->replot();
   } else {
     ui->list_table1->setRowCount(0);
     ui->list_table1->clearContents();
@@ -195,6 +231,37 @@ void MainWindow::on_selection2_currentIndexChanged(int index) {
     plot2_bardark->setData(ticks2, stats.mid(5, 3));
     ui->plot2->yAxis->rescale(true);
     ui->plot2->replot();
+    // Draw Plot
+    QVector<double> xdata_blue;
+    QVector<double> xdata_bluedark;
+    QVector<double> xdata_red;
+    QVector<double> xdata_gray;
+    QVector<double> ydata_blue;
+    QVector<double> ydata_bluedark;
+    QVector<double> ydata_red;
+    QVector<double> ydata_gray;
+    foreach (QStringList j, result) {
+      if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
+        xdata_blue.append(j.at(0).toDouble());
+        ydata_blue.append(j.at(1).toDouble());
+      } else if (j.at(3) == "in_frame" && j.at(4) == "upstream") {
+        xdata_bluedark.append(j.at(0).toDouble());
+        xdata_bluedark.append(j.at(1).toDouble());
+      } else {
+        xdata_gray.append(j.at(0).toDouble());
+        ydata_gray.append(j.at(1).toDouble());
+      }
+      xdata_red.append(orf_start);
+      xdata_red.append(orf_end);
+      ydata_red.append(-1);
+      ydata_red.append(-1);
+    }
+    ppmplot2_bar_blue->setData(xdata_blue, ydata_blue);
+    ppmplot2_bar_red->setData(xdata_red, ydata_red);
+    ppmplot2_bar_gray->setData(xdata_gray, ydata_gray);
+    ppmplot2_bar_bluedark->setData(xdata_bluedark, ydata_bluedark);
+    ui->ppm_plot2->rescaleAxes(true);
+    ui->ppm_plot2->replot();
   } else {
     ui->list_table2->setRowCount(0);
     ui->list_table2->clearContents();
@@ -265,6 +332,37 @@ void MainWindow::on_selection3_currentIndexChanged(int index) {
     plot3_bardark->setData(ticks2, stats.mid(5, 3));
     ui->plot3->yAxis->rescale(true);
     ui->plot3->replot();
+    // Draw Plot
+    QVector<double> xdata_blue;
+    QVector<double> xdata_bluedark;
+    QVector<double> xdata_red;
+    QVector<double> xdata_gray;
+    QVector<double> ydata_blue;
+    QVector<double> ydata_bluedark;
+    QVector<double> ydata_red;
+    QVector<double> ydata_gray;
+    foreach (QStringList j, result) {
+      if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
+        xdata_blue.append(j.at(0).toDouble());
+        ydata_blue.append(j.at(1).toDouble());
+      } else if (j.at(3) == "in_frame" && j.at(4) == "upstream") {
+        xdata_bluedark.append(j.at(0).toDouble());
+        xdata_bluedark.append(j.at(1).toDouble());
+      } else {
+        xdata_gray.append(j.at(0).toDouble());
+        ydata_gray.append(j.at(1).toDouble());
+      }
+      xdata_red.append(orf_start);
+      xdata_red.append(orf_end);
+      ydata_red.append(-1);
+      ydata_red.append(-1);
+    }
+    ppmplot3_bar_blue->setData(xdata_blue, ydata_blue);
+    ppmplot3_bar_red->setData(xdata_red, ydata_red);
+    ppmplot3_bar_gray->setData(xdata_gray, ydata_gray);
+    ppmplot3_bar_bluedark->setData(xdata_bluedark, ydata_bluedark);
+    ui->ppm_plot3->rescaleAxes(true);
+    ui->ppm_plot3->replot();
   } else {
     ui->list_table3->setRowCount(0);
     ui->list_table3->clearContents();
@@ -340,6 +438,86 @@ void MainWindow::setup_plots() {
     //    plot->yAxis2->setNumberPrecision(0);
     //    plot->yAxis->setScaleType(QCPAxis::stLogarithmic);
     //    plot->yAxis2->setScaleType(QCPAxis::stLogarithmic);
+  }
+  ppmplot1_bar_blue = new QCPBars(ui->ppm_plot1->xAxis, ui->ppm_plot1->yAxis);
+  ppmplot1_bar_bluedark =
+      new QCPBars(ui->ppm_plot1->xAxis, ui->ppm_plot1->yAxis);
+  ppmplot1_bar_red = new QCPBars(ui->ppm_plot1->xAxis, ui->ppm_plot1->yAxis);
+  ppmplot1_bar_gray = new QCPBars(ui->ppm_plot1->xAxis, ui->ppm_plot1->yAxis);
+  ppmplot2_bar_blue = new QCPBars(ui->ppm_plot2->xAxis, ui->ppm_plot2->yAxis);
+  ppmplot2_bar_bluedark =
+      new QCPBars(ui->ppm_plot2->xAxis, ui->ppm_plot2->yAxis);
+  ppmplot2_bar_red = new QCPBars(ui->ppm_plot2->xAxis, ui->ppm_plot2->yAxis);
+  ppmplot2_bar_gray = new QCPBars(ui->ppm_plot2->xAxis, ui->ppm_plot2->yAxis);
+  ppmplot3_bar_blue = new QCPBars(ui->ppm_plot3->xAxis, ui->ppm_plot3->yAxis);
+  ppmplot3_bar_bluedark =
+      new QCPBars(ui->ppm_plot3->xAxis, ui->ppm_plot3->yAxis);
+  ppmplot3_bar_red = new QCPBars(ui->ppm_plot3->xAxis, ui->ppm_plot3->yAxis);
+  ppmplot3_bar_gray = new QCPBars(ui->ppm_plot3->xAxis, ui->ppm_plot3->yAxis);
+  ppmplot1_bar_blue->setBrush(QColor(121, 202, 253));
+  ppmplot1_bar_bluedark->setBrush(QColor(30, 248, 38));
+  ppmplot2_bar_blue->setBrush(QColor(121, 202, 253));
+  ppmplot2_bar_bluedark->setBrush(QColor(30, 248, 38));
+  ppmplot3_bar_blue->setBrush(QColor(121, 202, 253));
+  ppmplot3_bar_bluedark->setBrush(QColor(30, 248, 38));
+  ppmplot1_bar_red->setBrush(QColor(253, 108, 96));
+  ppmplot2_bar_red->setBrush(QColor(253, 108, 96));
+  ppmplot3_bar_red->setBrush(QColor(253, 108, 96));
+  ppmplot1_bar_gray->setBrush(QColor(121, 121, 121));
+  ppmplot2_bar_gray->setBrush(QColor(121, 121, 121));
+  ppmplot3_bar_gray->setBrush(QColor(121, 121, 121));
+  // Pens
+  ppmplot1_bar_blue->setPen(QPen(QColor(121, 202, 253)));
+  ppmplot1_bar_bluedark->setPen(QPen(QColor(30, 248, 38)));
+  ppmplot2_bar_blue->setPen(QPen(QColor(121, 202, 253)));
+  ppmplot2_bar_bluedark->setPen(QPen(QColor(30, 248, 38)));
+  ppmplot3_bar_blue->setPen(QPen(QColor(121, 202, 253)));
+  ppmplot3_bar_bluedark->setPen(QPen(QColor(30, 248, 38)));
+  ppmplot1_bar_red->setPen(QPen(QColor(253, 108, 96)));
+  ppmplot2_bar_red->setPen(QPen(QColor(253, 108, 96)));
+  ppmplot3_bar_red->setPen(QPen(QColor(253, 108, 96)));
+  ppmplot1_bar_gray->setPen(QPen(QColor(121, 121, 121)));
+  ppmplot2_bar_gray->setPen(QPen(QColor(121, 121, 121)));
+  ppmplot3_bar_gray->setPen(QPen(QColor(121, 121, 121)));
+  ppmplot1_bar_blue->setWidth(10);
+  ppmplot1_bar_bluedark->setWidth(10);
+  ppmplot1_bar_red->setWidth(10);
+  ppmplot1_bar_gray->setWidth(10);
+  ppmplot2_bar_blue->setWidth(10);
+  ppmplot2_bar_bluedark->setWidth(10);
+  ppmplot2_bar_red->setWidth(10);
+  ppmplot2_bar_gray->setWidth(10);
+  ppmplot3_bar_blue->setWidth(10);
+  ppmplot3_bar_bluedark->setWidth(10);
+  ppmplot3_bar_red->setWidth(10);
+  ppmplot3_bar_gray->setWidth(10);
+  ppmplot1_bar_blue->setName("In Frame + ORF");
+  ppmplot1_bar_bluedark->setName("In Frame + Upstream");
+  ppmplot1_bar_red->setName("Start/Stop of CDS");
+  ppmplot1_bar_gray->setName("Downstream / Out of Frame");
+  ppmplot2_bar_blue->setName("In Frame + ORF");
+  ppmplot2_bar_bluedark->setName("In Frame + Upstream");
+  ppmplot2_bar_red->setName("Start/Stop of CDS");
+  ppmplot2_bar_gray->setName("Downstream / Out of Frame");
+  ppmplot3_bar_blue->setName("In Frame + ORF");
+  ppmplot3_bar_bluedark->setName("In Frame + Upstream");
+  ppmplot3_bar_red->setName("Start/Stop of CDS");
+  ppmplot3_bar_gray->setName("Downstream / Out of Frame");
+  QVector<QCustomPlot *> ppmplots;
+  ppmplots.append(ui->ppm_plot1);
+  ppmplots.append(ui->ppm_plot2);
+  ppmplots.append(ui->ppm_plot3);
+  for (int i = 0; i < ppmplots.count(); i++) {
+    QCustomPlot *plot = ppmplots.at(i);
+    plot->xAxis->setVisible(true);
+    plot->xAxis->grid()->setVisible(false);
+    plot->xAxis2->setVisible(false);
+    plot->yAxis->setVisible(true);
+    plot->yAxis2->setVisible(false);
+    plot->xAxis->setLabel("bp");
+    plot->yAxis->setLabel("ppm");
+    plot->legend->setVisible(true);
+    plot->legend->setBrush(QColor(255, 255, 255, 150));
   }
 }
 

@@ -40,6 +40,8 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
+  int orf_start;
+  int orf_end;
   QStringList db_files_list;
   DBQuery db_query;
   IO io_manager;
@@ -51,6 +53,18 @@ private:
   QCPBars *plot1_bardark;
   QCPBars *plot2_bardark;
   QCPBars *plot3_bardark;
+  QCPBars *ppmplot1_bar_blue;
+  QCPBars *ppmplot2_bar_blue;
+  QCPBars *ppmplot3_bar_blue;
+  QCPBars *ppmplot1_bar_bluedark;
+  QCPBars *ppmplot2_bar_bluedark;
+  QCPBars *ppmplot3_bar_bluedark;
+  QCPBars *ppmplot1_bar_red;
+  QCPBars *ppmplot2_bar_red;
+  QCPBars *ppmplot3_bar_red;
+  QCPBars *ppmplot1_bar_gray;
+  QCPBars *ppmplot2_bar_gray;
+  QCPBars *ppmplot3_bar_gray;
   QStringList reference_junction_list;
 };
 
