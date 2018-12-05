@@ -25,6 +25,8 @@ public:
   void initialize_blast_query(QString folder);
 
 private slots:
+  void disable_all_interactions();
+  void enable_all_interactions();
   void on_actionChoose_Work_Folder_triggered();
   void populate_completer(QStringList);
   void on_searchtext_editingFinished();

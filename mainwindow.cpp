@@ -10,9 +10,22 @@ MainWindow::MainWindow(QWidget *parent)
   setup_plots();
   // Delete below lines
   //  initialize_blast_query("/Users/Venky/Desktop/Test");
+  disable_all_interactions();
 }
 
 MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::disable_all_interactions() {
+  foreach (QWidget *w, ui->centralWidget->findChildren<QWidget *>()) {
+    w->setDisabled(true);
+  }
+}
+
+void MainWindow::enable_all_interactions() {
+  foreach (QWidget *w, ui->centralWidget->findChildren<QWidget *>()) {
+    w->setDisabled(false);
+  }
+}
 
 void MainWindow::initialize_blast_query(QString folder) {
   work_folder = folder;
@@ -34,6 +47,7 @@ void MainWindow::initialize_blast_query(QString folder) {
       ui->selection2->addItems(file_names_list);
       ui->selection3->addItems(file_names_list);
       populate_completer(db_query.get_gene_accession_list(db_files_list.at(0)));
+      enable_all_interactions();
     } else {
       QMessageBox::warning(this, tr("Blast Query ++"),
                            tr("No blast query databases found in work folder "
@@ -142,6 +156,7 @@ void MainWindow::on_selection1_currentIndexChanged(int index) {
     QVector<double> ydata_bluedark;
     QVector<double> ydata_red;
     QVector<double> ydata_gray;
+    double max_ppm = 0;
     foreach (QStringList j, result) {
       if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
         xdata_blue.append(j.at(0).toDouble());
@@ -153,11 +168,14 @@ void MainWindow::on_selection1_currentIndexChanged(int index) {
         xdata_gray.append(j.at(0).toDouble());
         ydata_gray.append(j.at(1).toDouble());
       }
-      xdata_red.append(orf_start);
-      xdata_red.append(orf_end);
-      ydata_red.append(-1);
-      ydata_red.append(-1);
+      if (j.at(1).toDouble() > max_ppm) {
+        max_ppm = j.at(1).toDouble();
+      }
     }
+    xdata_red.append(orf_start);
+    xdata_red.append(orf_end);
+    ydata_red.append(max_ppm * 0.1 * -1);
+    ydata_red.append(max_ppm * 0.1 * -1);
     ppmplot1_bar_blue->setData(xdata_blue, ydata_blue);
     ppmplot1_bar_red->setData(xdata_red, ydata_red);
     ppmplot1_bar_gray->setData(xdata_gray, ydata_gray);
@@ -240,6 +258,7 @@ void MainWindow::on_selection2_currentIndexChanged(int index) {
     QVector<double> ydata_bluedark;
     QVector<double> ydata_red;
     QVector<double> ydata_gray;
+    double max_ppm;
     foreach (QStringList j, result) {
       if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
         xdata_blue.append(j.at(0).toDouble());
@@ -251,11 +270,14 @@ void MainWindow::on_selection2_currentIndexChanged(int index) {
         xdata_gray.append(j.at(0).toDouble());
         ydata_gray.append(j.at(1).toDouble());
       }
-      xdata_red.append(orf_start);
-      xdata_red.append(orf_end);
-      ydata_red.append(-1);
-      ydata_red.append(-1);
+      if (j.at(1).toDouble() > max_ppm) {
+        max_ppm = j.at(1).toDouble();
+      }
     }
+    xdata_red.append(orf_start);
+    xdata_red.append(orf_end);
+    ydata_red.append(max_ppm * 0.1 * -1);
+    ydata_red.append(max_ppm * 0.1 * -1);
     ppmplot2_bar_blue->setData(xdata_blue, ydata_blue);
     ppmplot2_bar_red->setData(xdata_red, ydata_red);
     ppmplot2_bar_gray->setData(xdata_gray, ydata_gray);
@@ -341,6 +363,7 @@ void MainWindow::on_selection3_currentIndexChanged(int index) {
     QVector<double> ydata_bluedark;
     QVector<double> ydata_red;
     QVector<double> ydata_gray;
+    double max_ppm;
     foreach (QStringList j, result) {
       if (j.at(3) == "in_frame" && j.at(4) == "in_orf") {
         xdata_blue.append(j.at(0).toDouble());
@@ -352,11 +375,14 @@ void MainWindow::on_selection3_currentIndexChanged(int index) {
         xdata_gray.append(j.at(0).toDouble());
         ydata_gray.append(j.at(1).toDouble());
       }
-      xdata_red.append(orf_start);
-      xdata_red.append(orf_end);
-      ydata_red.append(-1);
-      ydata_red.append(-1);
+      if (j.at(1).toDouble() > max_ppm) {
+        max_ppm = j.at(1).toDouble();
+      }
     }
+    xdata_red.append(orf_start);
+    xdata_red.append(orf_end);
+    ydata_red.append(max_ppm * 0.1 * -1);
+    ydata_red.append(max_ppm * 0.1 * -1);
     ppmplot3_bar_blue->setData(xdata_blue, ydata_blue);
     ppmplot3_bar_red->setData(xdata_red, ydata_red);
     ppmplot3_bar_gray->setData(xdata_gray, ydata_gray);
@@ -481,15 +507,15 @@ void MainWindow::setup_plots() {
   ppmplot3_bar_gray->setPen(QPen(QColor(121, 121, 121)));
   ppmplot1_bar_blue->setWidth(10);
   ppmplot1_bar_bluedark->setWidth(10);
-  ppmplot1_bar_red->setWidth(10);
+  ppmplot1_bar_red->setWidth(25);
   ppmplot1_bar_gray->setWidth(10);
   ppmplot2_bar_blue->setWidth(10);
   ppmplot2_bar_bluedark->setWidth(10);
-  ppmplot2_bar_red->setWidth(10);
+  ppmplot2_bar_red->setWidth(25);
   ppmplot2_bar_gray->setWidth(10);
   ppmplot3_bar_blue->setWidth(10);
   ppmplot3_bar_bluedark->setWidth(10);
-  ppmplot3_bar_red->setWidth(10);
+  ppmplot3_bar_red->setWidth(25);
   ppmplot3_bar_gray->setWidth(10);
   ppmplot1_bar_blue->setName("In Frame + ORF");
   ppmplot1_bar_bluedark->setName("In Frame + Upstream");
